@@ -52,7 +52,7 @@ static NSString *extractStructName(NSString *typeEncodeString);
      free(classList);
      
      */
-#if defined(VIEW_OP_INSPECT_CRASH) || defined(VIEW_OP_INSPECT_LOG_TRACE)
+#if defined(VIEW_OP_INSPECT_CRASH) || defined(VIEW_OP_INSPECT_LOG_STACK)
     id classId = objc_getClass("UIView");
     //id classId = objc_getClass("Logger");
     Class class = [classId class];
@@ -118,7 +118,7 @@ static void LGForwardInvocation(id slf, SEL selector, NSInvocation *invocation)
         NSMutableArray *array = [NSMutableArray array];
         [array addObject:nil];
 #endif
-#ifdef VIEW_OP_INSPECT_LOG_TRACE
+#ifdef VIEW_OP_INSPECT_LOG_STACK
         NSLog(@"%@",[NSThread callStackSymbols]);
 #endif
         //        void *callStack[128];
