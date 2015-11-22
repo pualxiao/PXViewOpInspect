@@ -52,7 +52,7 @@ static NSString *extractStructName(NSString *typeEncodeString);
      free(classList);
      
      */
-    
+#if defined(VIEW_OP_INSPECT_CRASH) || defined(VIEW_OP_INSPECT_LOG_TRACE)
     id classId = objc_getClass("UIView");
     //id classId = objc_getClass("Logger");
     Class class = [classId class];
@@ -87,6 +87,7 @@ static NSString *extractStructName(NSString *typeEncodeString);
     }
     
     free(methodList);
+#endif
 }
 
 @end
@@ -112,14 +113,16 @@ static NSString *extractStructName(NSString *typeEncodeString)
 
 static void LGForwardInvocation(id slf, SEL selector, NSInvocation *invocation)
 {
-    //NSLog(@"%@.%@.%@",slf, NSStringFromSelector(selector), invocation);
-    
     if (![NSThread currentThread].isMainThread) {
-        NSMutableArray *a = [NSMutableArray array];
-        //[a addObject:nil];
+#ifdef VIEW_OP_INSPECT_CRASH
+        NSMutableArray *array = [NSMutableArray array];
+        [array addObject:nil];
+#endif
+#ifdef VIEW_OP_INSPECT_LOG_TRACE
+        NSLog(@"%@",[NSThread callStackSymbols]);
+#endif
         //        void *callStack[128];
         //int frames = callStack();
-        NSLog(@"%@",[NSThread callStackSymbols]);
     }
     NSString *selectorName = NSStringFromSelector(invocation.selector);
     NSString *LGSelectorName = [NSString stringWithFormat:@"ORIG_%@", selectorName];
