@@ -20,38 +20,6 @@ static NSString *extractStructName(NSString *typeEncodeString);
 @implementation PXViewOpInspect
 
 + (void)load {
-    
-    /*
-     
-     unsigned int classCount = 0;
-     
-     Class *classList = objc_copyClassList (&classCount);
-     
-     for (int i = 0; i < classCount; i++) {
-     
-     Class class = classList[i];
-     
-     unsigned int methodCount = 0;
-     
-     Method *methodList = class_copyMethodList(class, &methodCount);
-     
-     for (int j = 0; j < methodCount; j++) {
-     
-     Method method = methodList[j];
-     
-     
-     
-     overrideMethod(class, NSStringFromSelector(method_getName(method)), method_getTypeEncoding(method));
-     
-     }
-     
-     free(methodList);
-     
-     }
-     
-     free(classList);
-     
-     */
 #if defined(VIEW_OP_INSPECT_CRASH) || defined(VIEW_OP_INSPECT_LOG_STACK)
     id classId = objc_getClass("UIView");
     //id classId = objc_getClass("Logger");
